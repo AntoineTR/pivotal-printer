@@ -1,9 +1,14 @@
 body, html {
   margin: 0; padding: 0;
+  background: #333;
+  font-family: sans-serif;
 }
 
 #container {
   width: 600px;
-  margin:30px auto;
-  background: #eee;
+  margin:60px auto;
+  background: #fff;
+  border: 3px solid #eee;
+  padding: 15px;
+  border-radius: 4px;
 }

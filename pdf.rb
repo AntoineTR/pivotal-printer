@@ -59,7 +59,7 @@ def get_cards_file(cards)
       
       pdf.text_box "Points: " + card.estimate.to_s,
       :size => 12, :at => [12, 50], :width => cell.width-18
-      pdf.text_box "Labels: " + card.labels,
+      pdf.text_box "Labels: " + (card.labels.nil? ? '' : card.labels),
       :size => 8, :at => [12, 18], :width => cell.width-18
       
       pdf.fill_color "999999"

@@ -24,25 +24,32 @@ post '/' do
   erb :projects, :locals => { :projects => @projects }
 end
 
+def send_pdf_file(stories)
+  filename = 'pivotal_cards_'+SecureRandom.hex+'.pdf'
+  headers["Content-Disposition"] = "attachment;filename=" + filename
+  get_cards_file(stories)
+end
+
 post '/print_label' do
   pid = params[:id]
   lid = params[:label_id]
   PivotalTracker::Client.token = session[:apikey]
   @project = PivotalTracker::Project.find(pid.to_i)
-  logger.info(@project.inspect)
-  @stories = @project.stories.all(:filter => 'label:"'+lid+'"')
-  logger.info(@stories.inspect)
-  filename = 'pivotal_cards_'+SecureRandom.hex+'.pdf'
-  #headers["Content-Type"] = "Application/octet-stream"
-  headers["Content-Disposition"] = "attachment;filename=" + filename
-  get_cards_file(@stories)
-  #send_file get_cards_file(@stories), :filename => filename, :type => 'Application/octet-stream'
+  @stories = @project.stories.all.select {|s| (s.labels || "").split(',').include?(lid) }
+  
+  send_pdf_file(@stories)
 end
 
 post '/print_iteration' do
   pid = params[:id]
   iid = params[:iteration_id]
   PivotalTracker::Client.token = session[:apikey]
-  @project = PivotalTracker::Project.find(pid)
-  
+  @project = PivotalTracker::Project.find(pid.to_i)
+  @project.iterations.all.each do |i|
+    if i.number.to_i == iid.to_i
+      @stories = i.stories
+    end
+  end
+  logger.info @stories.inspect
+  send_pdf_file(@stories || [])
 end

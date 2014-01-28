@@ -17,7 +17,7 @@
       <form action="/print_iteration" method="post">
         <input type="hidden" name="id" value="<%= project.id %>" />      
         <select name="iteration_id">
-          <option value="<%= project.current_iteration_number  %>"><%= project.current_iteration_number  %></option>
+          <option value="<%= project.current_iteration_number  %>"><%= project.current_iteration_number %> (current)</option>
           <% project.iterations.all.each do |i| %>
             <option value="<%= i.number %>"><%= i.number %></option>
           <% end %>

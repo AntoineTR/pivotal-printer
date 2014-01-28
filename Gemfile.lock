@@ -6,6 +6,8 @@ GEM
     builder (3.2.2)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
+    daemons (1.1.9)
+    eventmachine (1.0.3)
     happymapper (0.4.1)
       libxml-ruby (~> 2.0)
     hashery (2.1.1)
@@ -47,6 +49,10 @@ GEM
       tilt (~> 1.3, >= 1.3.4)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
+    thin (1.6.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     tilt (1.4.1)
     tins (0.13.1)
     ttfunk (1.0.3)
@@ -59,3 +65,4 @@ DEPENDENCIES
   prawn
   sinatra
   term-ansicolor
+  thin

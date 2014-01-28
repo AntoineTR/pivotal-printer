@@ -1,0 +1,29 @@
+<ul>
+  <% projects.each do |project| %>
+    <li>
+      <%= project.name %><br/>
+      <form action="/print_label" method="post">
+        <input type="hidden" name="id" value="<%= project.id %>" />
+        <select name="label_id">
+          <% project.labels.split(',').each do |l| %>
+            <option value="<%= l %>"><%= l %></option>
+          <% end %>
+        </select>
+        <button type="submit">Print label stories</button>
+      </form>
+      
+      <br/>
+      
+      <form action="/print_iteration" method="post">
+        <input type="hidden" name="id" value="<%= project.id %>" />      
+        <select name="iteration_id">
+          <option value="<%= project.current_iteration_number  %>"><%= project.current_iteration_number  %></option>
+          <% project.iterations.all.each do |i| %>
+            <option value="<%= i.number %>"><%= i.number %></option>
+          <% end %>
+        </select>
+        <button type="submit">Print iteration stories</button>
+      </form>
+    </li>
+  <% end %>
+</ul>

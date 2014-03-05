@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link href='http://fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css'>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   </head>
   <body>
     <div id="container">
@@ -15,5 +16,29 @@
         <a href="https://github.com/kiasaki/pivotal-printer">Source code on GitHub</a>
       </footer>
     </div>
+    <script>
+      $( "body" ).mousemove(function( event ) {
+    
+            var offset = $(this).offset();
+            var x = event.pageX;
+            x = (x * 360)/ 1280;
+            var y = event.pageY;
+            y = ((600-y)* 100)/ 600;
+            var sat = 90;
+
+
+            var bodycolor = "hsla(" +x +", 25%, "+ y +"%, " +"1.0)";
+            var highcolor = "hsla(" +x +", 75%, "+ y +"%, " +"1.0)";
+            var veryhighcolor = "hsla(" +x +", 95%, "+ y +"%, " +"1.0)";
+            var midcolor = "hsla(" +x +", 60%, "+ y +"%, " +"1.0)";
+            $('body').css('background-color', bodycolor);
+            $('html').css('background-color', bodycolor);
+            $('input, button, select').css('background-color', veryhighcolor);
+            $('input, button, select').css('border-bottom', "2px solid " + bodycolor);
+            $('h1, footer').css('background-color', veryhighcolor);
+            $('.help-block').css('background-color', highcolor);
+            $('ul li').css('background-color', highcolor);
+        });
+    </script>
   </body>
 </html>
